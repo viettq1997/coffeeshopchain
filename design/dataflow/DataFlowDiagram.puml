@@ -1,0 +1,37 @@
+@startuml
+skinparam backgroundColor #F5F5F5
+skinparam rectangle {
+    BackgroundColor #ECF0F1
+    BorderColor #2C3E50
+    FontColor #2C3E50
+}
+
+actor Customer
+participant "Customer App" as App
+participant "Backend API" as API
+database "Database" as DB
+participant "Shop App" as Shop
+participant "Queue Management Service" as Queue
+
+== Registration/Login Flow ==
+Customer -> App: Register/Login with mobile number
+App -> API: Send registration/login request
+API -> DB: Store/retrieve customer details
+DB --> API: Confirm registration/login
+API --> App: Return success/failure
+App --> Customer: Show registration/login status
+
+== Order Flow ==
+Customer -> App: Select shop and items
+App -> API: Place order
+API -> DB: Save order details
+API -> Shop: Notify shop of new order
+API -> Queue: Update shop's queue
+Queue -> Shop: Notify of queue update
+
+== Queue Flow ==
+Queue -> API: Fetch updated queue position
+API -> App: Return queue position and wait time
+App --> Customer: Display updated queue status
+
+@enduml

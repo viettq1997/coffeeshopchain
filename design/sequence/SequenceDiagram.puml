@@ -1,0 +1,53 @@
+@startuml
+skinparam backgroundColor #F5F5F5
+skinparam sequence {
+    ArrowColor #2C3E50
+    ActorBorderColor #2C3E50
+    ParticipantBorderColor #2C3E50
+    ParticipantBackgroundColor #ECF0F1
+    LifeLineBorderColor #34495E
+    LifeLineBackgroundColor #ECF0F1
+    BoxPadding 10
+    BoxFontColor #2C3E50
+    BoxFontSize 12
+    ParticipantFontColor #2C3E50
+    ParticipantFontSize 13
+    SequenceMessageAlign center
+}
+
+actor Customer
+participant "Customer App" as App
+participant "Backend API" as API
+participant "Database" as DB
+participant "Shop App" as Shop
+participant "Queue Management" as QueueService
+participant "Barista" as Barista
+
+== Order Placement ==
+
+Customer -> App: Select shop
+App -> API: Fetch menu for shop
+API -> DB: Retrieve menu data
+DB --> API: Return menu data
+API --> App: Return menu
+
+Customer -> App: Select items and confirm order
+App -> API: Place order
+API -> DB: Save order
+API -> Shop: Send order to shop
+Shop -> Barista: Notify barista of new order
+API -> QueueService: Update queue with order
+QueueService -> App: Send estimated waiting time
+
+App --> Customer: Display order confirmation\nand estimated wait time
+
+== View Queue Status ==
+
+Customer -> App: Request queue position
+App -> API: Request queue status
+API -> QueueService: Fetch queue position
+QueueService -> API: Return position and waiting time
+API -> App: Return position and waiting time
+App --> Customer: Display queue position\nand waiting time
+
+@enduml

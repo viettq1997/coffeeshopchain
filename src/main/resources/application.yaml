@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: coffeeshopchain
+  datasource:
+    url: "${DATABASE_URL:jdbc:postgresql://localhost:5432/customer_app_db}"
+    username: "${DATABASE_USER:admin}"
+    password: "${DATABASE_PASSWORD:admin}"
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      pool-name: HikariPool-1
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true # false in production
+    properties:
+      hibernate:
+        format_sql: true
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.yaml

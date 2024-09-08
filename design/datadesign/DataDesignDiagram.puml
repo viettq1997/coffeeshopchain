@@ -1,0 +1,40 @@
+@startuml
+skinparam backgroundColor #F5F5F5
+skinparam class {
+    BackgroundColor #ECF0F1
+    BorderColor #2C3E50
+    FontColor #2C3E50
+}
+
+class tb_customer {
+    + customer_id : UUID
+    + name : String
+    + mobile_number : String
+    + address : String
+    + order_history : String
+}
+
+class tb_shop {
+    + shop_id : UUID
+    + name : String
+    + address : String
+    + latitude : String
+    + longitude : String
+    + contact_details : String
+    + menu : String
+    + queue_status : String
+}
+
+class tb_order {
+    + order_id : UUID
+    + customer_id : UUID
+    + shop_id : UUID
+    + menu_items : String
+    + order_status : String
+    + queue_position : Int
+    + estimate_waiting_time: Int
+}
+
+tb_customer "1" --> "0..*" tb_order : places
+tb_shop "1" --> "0..*" tb_order : receives
+@enduml

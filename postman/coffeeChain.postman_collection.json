@@ -1,0 +1,149 @@
+{
+	"info": {
+		"_postman_id": "6b693e16-720b-4d6c-9ebf-a94861c0f810",
+		"name": "coffeeChain",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6740463",
+		"_collection_link": "https://restless-escape-574326.postman.co/workspace/abc~3b53d508-9a7f-4c81-91ca-e382ee21b219/collection/6740463-6b693e16-720b-4d6c-9ebf-a94861c0f810?action=share&source=collection_link&creator=6740463"
+	},
+	"item": [
+		{
+			"name": "/api/v1/orders",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201)",
+							"})",
+							"pm.test(\"response data include order id\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.orderId).not.null",
+							"    pm.collectionVariables.set(\"orderId\", jsonData.data.orderId)",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"customerId\": \"e410f94b-0d87-484a-abf6-9b6f958f3e28\",\n    \"shopId\": \"98fca19c-35e1-46f2-a968-6faa7b8fcdde\",\n    \"orderItems\": [\n        {\n            \"itemId\": \"123\",\n            \"name\": \"shopee\",\n            \"quantity\": 1\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/v1/orders/{{orderId}}/status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200)",
+							"})",
+							"pm.test(\"response data include order id, queue position\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.orderId).not.null",
+							"    pm.expect(jsonData.data.queuePosition).not.null",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/orders/{{orderId}}/status",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"orders",
+						"{{orderId}}",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/v1/orders/{{orderId}}",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200)",
+							"})",
+							"pm.test(\"response data include order id and message\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.orderId).not.null",
+							"    pm.expect(jsonData.message).to.eql(\"Cancel order successful!\")",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/orders/{{orderId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"orders",
+						"{{orderId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "orderId",
+			"value": ""
+		}
+	]
+}

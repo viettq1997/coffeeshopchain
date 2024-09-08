@@ -1,0 +1,40 @@
+# How to run app
+
+## Prerequisites
+- Docker is available
+- PostgreSQL is installed
+- Gradle 7.5
+
+## Step 1
+```shell
+./gradlew clean build
+```
+## Step 2
+go to [Dockerfile](Dockerfile) then update database info
+
+## Step 3
+```shell
+docker build -t coffee-shop-chain .
+```
+
+## Step 4
+- Make sure container `app` is not exist
+```shell
+docker container rm app
+```
+- If we connect to postgreSQL external server we just need update docker in `Step 2` then run this:
+```shell
+docker run -p 8080:8080 --name app coffee-shop-chain
+```
+- Otherwise, If we don't have postgreSQL external server. we can set up locally:
+```shell
+docker compose up
+```
+then run app with network: `coffeeshopchain_common-network`:
+```shell
+docker run -p 8080:8080 --name app --network coffeeshopchain_common-network coffee-shop-chain
+```
+
+## Step 5
+- Now you are able to test via http://localhost:8080
+- Back to [README](README.md) to see how to test.

@@ -1,0 +1,32 @@
+@startuml
+skinparam backgroundColor #F5F5F5
+skinparam usecase {
+    ArrowColor #2C3E50
+    ActorBorderColor #2C3E50
+    ActorBackgroundColor #3498DB
+    ActorFontSize 14
+    UsecaseBorderColor #34495E
+    UsecaseBackgroundColor #ECF0F1
+    UsecaseFontColor #2C3E50
+    UsecaseFontSize 12
+}
+
+actor Customer as Customer
+
+rectangle App {
+    usecase "Register/Login" as UC1
+    usecase "View Nearby Shops" as UC2
+    usecase "View Shop Menu" as UC3
+    usecase "Place an Order" as UC4
+    usecase "View Queue Position" as UC5
+    usecase "Cancel Order" as UC6
+}
+
+Customer --> UC1 : "Register/Login"
+Customer --> UC2 : "View Nearby Shops"
+Customer --> UC3 : "View Shop Menu"
+Customer --> UC4 : "Place an Order"
+Customer --> UC5 : "View Queue Position"
+Customer --> UC6 : "Cancel Order"
+
+@enduml

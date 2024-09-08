@@ -1,0 +1,43 @@
+@startuml
+skinparam backgroundColor #F5F5F5
+skinparam componentStyle rectangle
+skinparam rectangle {
+    BorderColor #34495E
+    BackgroundColor #ECF0F1
+    FontColor #2C3E50
+    FontSize 12
+}
+
+actor Customer as "Customer"
+actor ShopOwner as "Shop Owner"
+
+rectangle "Mobile Applications" {
+    [Customer App (iOS/Android)] as CustomerApp
+    [Coffee Shop App] as ShopApp
+}
+
+rectangle "Backend Services" {
+    [API Gateway] as APIGateway
+    [Database] as DB
+    [Auth Service] as Auth
+    [Queue Management Service] as Queue
+    [Notification Service] as Notification
+}
+
+[Geolocation Service\n(Google Maps API)] as Geolocation
+
+Customer --> CustomerApp : "Interacts with"
+ShopOwner --> ShopApp : "Manages orders"
+
+CustomerApp --> APIGateway : "API calls"
+ShopApp --> APIGateway : "API calls"
+APIGateway --> Auth : "Authentication"
+APIGateway --> DB : "Data storage/retrieval"
+APIGateway --> Queue : "Manage queue"
+APIGateway --> Notification : "Send notifications"
+APIGateway --> Geolocation : "Fetch geolocation"
+
+Notification --> CustomerApp : "Push order updates"
+Queue --> CustomerApp : "Queue position updates"
+
+@enduml

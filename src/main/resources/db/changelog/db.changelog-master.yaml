@@ -1,0 +1,114 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: user
+      changes:
+        - createTable:
+            tableName: tb_customer
+            columns:
+              - column:
+                  name: customer_id
+                  type: VARCHAR(50)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: mobile_number
+                  type: VARCHAR(20)
+              - column:
+                  name: address
+                  type: VARCHAR(255)
+  - changeSet:
+      id: 2
+      author: user
+      changes:
+        - createTable:
+            tableName: tb_shop
+            columns:
+              - column:
+                  name: shop_id
+                  type: VARCHAR(50)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(50)
+              - column:
+                  name: address
+                  type: VARCHAR(50)
+              - column:
+                  name: latitude
+                  type: NUMERIC(9, 6)
+              - column:
+                  name: longitude
+                  type: NUMERIC(9, 6)
+              - column:
+                  name: contact_details
+                  type: VARCHAR(255)
+  - changeSet:
+      id: 3
+      author: user
+      changes:
+        - createTable:
+            tableName: tb_order
+            columns:
+              - column:
+                  name: order_id
+                  type: VARCHAR(50)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: customer_id
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: shop_id
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: order_items
+                  type: VARCHAR(2000)
+              - column:
+                  name: order_status
+                  type: VARCHAR(20)
+              - column:
+                  name: queue_position
+                  type: INT
+              - column:
+                  name: estimate_waiting_time
+                  type: INT
+  - changeSet:
+      id: 4
+      author: user
+      changes:
+        - loadData:
+            tableName: tb_customer
+            file: classpath:db/data/customer.csv
+            separator: ","
+            columns:
+              - column: customer_id
+              - column: name
+              - column: mobile_number
+              - column: address
+  - changeSet:
+      id: 5
+      author: user
+      changes:
+        - loadData:
+            tableName: tb_shop
+            file: classpath:db/data/shop.csv
+            separator: ","
+            columns:
+              - column: shop_id
+              - column: name
+              - column: address
+              - column: latitude
+              - column: longitude
+              - column: contact_details
