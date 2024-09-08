@@ -41,4 +41,4 @@ docker run -p 8080:8080 --name app --network coffeeshopchain_common-network coff
 - Back to [README](README.md) to see how to test.
 
 # Note
-- If you plan to deploy this application to AWS, you'll need to follow through at least `Step 3`.
+- If you plan to deploy this application to AWS, you'll need to follow through at least `Step 2`.
