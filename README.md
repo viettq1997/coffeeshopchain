@@ -51,7 +51,8 @@
 
 # Dev Set Up
 [Dev Set Up](DEVSETUP.md)
-
+# AWS Set Up
+[AWS Set Up](AWSSETUP.md)
 # Testing
 Using postman then import this collection and run one by one
 [Postman collection](postman/coffeeChain.postman_collection.json)
