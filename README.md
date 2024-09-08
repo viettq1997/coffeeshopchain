@@ -1,4 +1,6 @@
 # Customer App
+## Note
+- **Additional feature**: Only allow orders with the status "PLACED" to be canceled. This prevents customers from canceling orders when they are being prepared by the barista or if they have already been canceled.
 
 ## 1. Solution Design for the Customer App
 ### Use cases

@@ -5,19 +5,19 @@
 - PostgreSQL is installed
 - Gradle 7.5
 
-## Step 1
+## Step 1: Build spring boot app using gradle
 ```shell
 ./gradlew clean build
 ```
-## Step 2
+## Step 2: Update database info
 go to [Dockerfile](Dockerfile) then update database info
 
-## Step 3
+## Step 3: Build docker image
 ```shell
 docker build -t coffee-shop-chain .
 ```
 
-## Step 4
+## Step 4: Run container
 - Make sure container `app` is not exist
 ```shell
 docker container rm app
@@ -35,6 +35,9 @@ then run app with network: `coffeeshopchain_common-network`:
 docker run -p 8080:8080 --name app --network coffeeshopchain_common-network coffee-shop-chain
 ```
 
-## Step 5
+## Step 5: Testing
 - Now you are able to test via http://localhost:8080
 - Back to [README](README.md) to see how to test.
+
+# Note
+- If you plan to deploy this application to AWS, you'll need to follow through at least `Step 3`.
