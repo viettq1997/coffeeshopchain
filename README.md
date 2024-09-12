@@ -40,9 +40,9 @@
   - `GET api/v1/shops`: Get nearby coffee shops using geolocation.
   - `GET api/v1/shops/{shopId}/menu`: Get the menu of a specific shop.
 - Order Endpoints:
-  - `POST api/v1/orders`: Place an orderEntity at a specific shop.
-  - `GET api/v1/orders/{orderId}/status`: Get the current queue position and orderEntity status.
-  - `DELETE api/v1/orders/{orderId}`: Cancel the orderEntity.
+  - `POST api/v1/orders`: Place an order at a specific shop.
+  - `GET api/v1/orders/{orderId}/status`: Get the current queue position and order status.
+  - `DELETE api/v1/orders/{orderId}`: Cancel the order.
 ## 5. Testing Without a Front-End
 - **Unit Testing**: Use JUnit for backend services testing.
 - **Integration Testing**: Use Postman to test API endpoints. Automated testing with a CI/CD pipeline to run integration tests.
@@ -56,3 +56,8 @@
 # Testing
 Using postman then import this collection and run one by one
 [Postman collection](postman/coffeeChain.postman_collection.json)
+
+# Enhancement Proposal
+- To efficiently handle high concurrent requests during peak hours, such as shop promotions or discount events, we propose integrating Apache Kafka. This will help manage the increased traffic load and ensure smooth processing of requests.
+- Plan:
+![Data Flow With Kafka](design/dataflow/DataFlowWithKafkaDiagram.svg)

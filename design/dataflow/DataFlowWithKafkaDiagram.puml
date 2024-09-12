@@ -1,0 +1,45 @@
+@startuml
+skinparam backgroundColor #F5F5F5
+skinparam rectangle {
+    BackgroundColor #ECF0F1
+    BorderColor #2C3E50
+    FontColor #2C3E50
+}
+
+actor Customer
+participant "Customer App" as App
+participant "Backend API (Order Service)" as API
+database "Database" as DB
+participant "Shop App" as Shop
+participant "Queue Management Service" as Queue
+boundary Kafka as K
+
+== Registration/Login Flow ==
+Customer -> App: Register/Login with mobile number
+App -> API: Send registration/login request
+API -> DB: Store/retrieve customer details
+DB --> API: Confirm registration/login
+API --> App: Return success/failure
+App --> Customer: Show registration/login status
+
+== Order Flow (with Kafka) ==
+Customer -> App: Select shop and items
+App -> API: Place order
+
+API -> K: Publish full order request to Kafka
+
+== Order Processing Flow (via Kafka) ==
+K -> API: Consume order request from Kafka
+API -> DB: Save order details
+K -> Shop: Send full order request to Shop
+K -> Queue: Send order request to Queue Management Service
+Queue -> Queue: Update queue
+
+Queue -> K: Publish "Queue Updated" Event
+K -> Shop: Notify shop of queue update
+
+K -> API: Consume "Queue Updated" Event
+API -> App: Return updated queue position
+App --> Customer: Display updated queue status
+
+@enduml
