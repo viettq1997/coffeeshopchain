@@ -8,7 +8,7 @@ skinparam rectangle {
 
 actor Customer
 participant "Customer App" as App
-participant "Backend API" as API
+participant "Backend API (Order Service)" as API
 database "Database" as DB
 participant "Shop App" as Shop
 participant "Queue Management Service" as Queue
